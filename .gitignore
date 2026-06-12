@@ -1,0 +1,25 @@
+# Terraform working files and state
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfplan
+
+# Terraform variable files can contain secrets
+*.tfvars
+*.tfvars.json
+!terraform.tfvars.example
+
+# Local credentials and keys
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# IDE and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
