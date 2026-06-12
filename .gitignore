@@ -23,3 +23,10 @@ id_ed25519*
 .DS_Store
 Thumbs.db
 
+# Local evidence-generation and report-rendering artifacts
+evidencias/chrome-*/
+evidencias/paginas/
+evidencias/08-*.txt
+informe/rendered/
+informe/lo-profile-final/
+Informe_Terraform_Steven_Carrillo_Loor.docx
