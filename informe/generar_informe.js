@@ -101,7 +101,7 @@ function caption(text) {
   });
 }
 
-function image(filename, width = 620, height = 431) {
+function image(filename, width = 620, height = 349) {
   return new Paragraph({
     alignment: AlignmentType.CENTER,
     spacing: { before: 80, after: 40 },
@@ -318,13 +318,13 @@ const children = [
     "La inicializacion y validacion se ejecutaron localmente con Terraform 1.15.6. AzureRM se resolvio en la version 4.77.0 y el proveedor OCI en la version 8.18.0. Ambas configuraciones superaron terraform validate.",
   ),
   image("03-azure-terraform-init.png"),
-  caption("Figura 2. Salida real de terraform init para Azure."),
-  image("04-azure-terraform-validate.png", 620, 150),
-  caption("Figura 3. Salida real de terraform validate para Azure."),
+  caption("Figura 2. Evidencia real de terraform init para Azure publicada en GitHub."),
+  image("04-azure-terraform-validate.png", 620, 194),
+  caption("Figura 3. Evidencia real de terraform validate para Azure publicada en GitHub."),
   image("05-oracle-terraform-init.png"),
-  caption("Figura 4. Salida real de terraform init para Oracle Cloud."),
-  image("06-oracle-terraform-validate.png", 620, 150),
-  caption("Figura 5. Salida real de terraform validate para Oracle Cloud."),
+  caption("Figura 4. Evidencia real de terraform init para Oracle Cloud publicada en GitHub."),
+  image("06-oracle-terraform-validate.png", 620, 194),
+  caption("Figura 5. Evidencia real de terraform validate para Oracle Cloud publicada en GitHub."),
 
   heading("7. Control de versiones y repositorio publico"),
   body(

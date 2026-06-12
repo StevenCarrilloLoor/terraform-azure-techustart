@@ -29,4 +29,6 @@ evidencias/paginas/
 evidencias/08-*.txt
 informe/rendered/
 informe/lo-profile-final/
+informe/lo-profile-*/
+informe/qa-*/
 Informe_Terraform_Steven_Carrillo_Loor.docx
