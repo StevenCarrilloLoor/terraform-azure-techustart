@@ -2,6 +2,8 @@
 
 Este proyecto implementa el primer script de Terraform solicitado para TechUStart. Crea una maquina virtual Linux en Azure y publica un servidor web Apache instalado automaticamente mediante `custom_data`.
 
+La cuenta Azure utilizada para la demostracion no dispone de una suscripcion activa. Por ello, la carpeta [`oracle`](oracle/) incluye la implementacion equivalente para Oracle Cloud Infrastructure, conforme a la alternativa permitida en la consigna.
+
 ## Recursos creados
 
 - Grupo de recursos.
@@ -47,4 +49,3 @@ terraform destroy -var "ssh_public_key=$(Get-Content $HOME\.ssh\id_ed25519.pub)"
 ## Seguridad
 
 El repositorio excluye archivos de estado, planes, variables locales y claves. La regla entrante del NSG permite solamente HTTP por el puerto 80, conforme a la consigna.
-
