@@ -1,41 +1,39 @@
-# Terraform working files and state
-.terraform/
+# Terraform runtime data
+**/.terraform/*
 *.tfstate
 *.tfstate.*
+*.tfplan
 crash.log
 crash.*.log
-*.tfplan
 
-# Terraform variable files can contain secrets
+# Local overrides
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Variable files may contain local identifiers or secrets
 *.tfvars
 *.tfvars.json
 !terraform.tfvars.example
 
-# Local credentials and keys
+# Terraform CLI configuration
+.terraformrc
+terraform.rc
+
+# Credentials and private keys
+.auth-temp/
 *.pem
 *.key
 id_rsa*
 id_ed25519*
 
-# IDE and operating system files
-.vscode/
+# Editors and operating systems
 .idea/
+.vscode/
 .DS_Store
 Thumbs.db
 
-# Local evidence-generation and report-rendering artifacts
-evidencias/chrome-*/
-evidencias/paginas/
-evidencias/08-*.txt
-informe/rendered/
-informe/lo-profile-final/
-informe/lo-profile-*/
-informe/qa-*/
-Informe_Terraform_Steven_Carrillo_Loor.docx
-Guion_Presentacion_Terraform.docx
-demo-terraform/.terraform/
-demo-terraform/.terraform.lock.hcl
-demo-terraform/*.tfstate
-demo-terraform/*.tfstate.*
-demo-terraform/*.tfplan
-.auth-temp/
+# Generated output
+*.log
+tmp/

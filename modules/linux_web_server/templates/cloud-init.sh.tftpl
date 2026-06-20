@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get update -y
+apt-get install -y apache2
+systemctl enable --now apache2
+
+cat > /var/www/html/index.html <<'HTML'
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${page_title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>${page_title}</h1>
+      <p>Servidor Apache ejecutandose sobre una maquina virtual Ubuntu en Azure.</p>
+      <p>Infraestructura creada y administrada con Terraform.</p>
+    </main>
+  </body>
+</html>
+HTML

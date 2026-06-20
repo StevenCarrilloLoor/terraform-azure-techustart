@@ -1,6 +1,0 @@
-region          = "us-ashburn-1"
-compartment_id  = "ocid1.compartment.oc1..example"
-instance_shape  = "VM.Standard.E2.1.Micro"
-resource_prefix = "techustart"
-ssh_public_key  = "ssh-ed25519 AAAA... usuario@equipo"
-

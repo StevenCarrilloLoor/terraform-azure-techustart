@@ -2,5 +2,16 @@ azure_region    = "eastus"
 tamano_vm       = "Standard_B1s"
 resource_prefix = "techustart"
 admin_username  = "azureadmin"
-ssh_public_key  = "ssh-rsa AAAA... usuario@equipo"
+ssh_public_key  = "ssh-ed25519 AAAA... usuario@equipo"
 
+# Optional. Keep these commented to use the active Azure CLI session.
+# azure_subscription_id = "00000000-0000-0000-0000-000000000000"
+# azure_tenant_id       = "00000000-0000-0000-0000-000000000000"
+
+virtual_network_cidrs   = ["10.0.0.0/16"]
+subnet_address_prefixes = ["10.0.1.0/24"]
+
+tags = {
+  environment = "development"
+  owner       = "TechUStart"
+}

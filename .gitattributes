@@ -1,0 +1,12 @@
+* text=auto
+
+.gitattributes text eol=lf
+.gitignore text eol=lf
+.editorconfig text eol=lf
+*.tf text eol=lf
+*.hcl text eol=lf
+*.tftpl text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.ps1 text eol=crlf
