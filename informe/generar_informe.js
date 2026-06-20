@@ -234,7 +234,7 @@ const children = [
     alignment: AlignmentType.CENTER,
     spacing: { after: 900 },
     children: [
-      run("Automatizacion de una maquina virtual Linux con servidor Apache", {
+      run("Implementacion Azure y demostracion autorizada con Docker y Apache", {
         size: 28,
         italics: true,
         color: COLORS.gray,
@@ -246,7 +246,7 @@ const children = [
     ["Estudiante", "Steven Carrillo Loor"],
     ["Modalidad", "Trabajo individual"],
     ["Repositorio publico", "github.com/StevenCarrilloLoor/terraform-azure-techustart"],
-    ["Fecha", "12 de junio de 2026"],
+    ["Fecha", "19 de junio de 2026"],
   ]),
   pageBreak(),
 
@@ -257,22 +257,22 @@ const children = [
     ["2. Objetivos", "3"],
     ["3. Arquitectura propuesta", "3"],
     ["4. Implementacion para Azure", "4"],
-    ["5. Alternativa para Oracle Cloud Infrastructure", "4"],
+    ["5. Demostracion autorizada con Docker", "4"],
     ["6. Validacion tecnica", "5"],
-    ["7. Control de versiones y repositorio publico", "7"],
-  ["8. Estado del despliegue", "7"],
-    ["9. Comandos de ejecucion", "8"],
-  ["10. Conclusiones", "8"],
-  ["Referencias", "9"],
+    ["7. Control de versiones y repositorio publico", "8"],
+    ["8. Estado del despliegue", "8"],
+    ["9. Comandos de ejecucion", "9"],
+    ["10. Conclusiones", "9"],
+    ["Referencias", "10"],
   ]),
   pageBreak(),
 
   heading("1. Introduccion"),
   body(
-    "La infraestructura como codigo permite describir recursos de nube mediante archivos versionables, repetibles y auditables. Para esta actividad se desarrollo un proyecto Terraform que automatiza una maquina virtual Ubuntu, su red publica, la proteccion de acceso HTTP y la instalacion de Apache. La implementacion principal sigue los requisitos de Microsoft Azure y se acompana de una alternativa equivalente para Oracle Cloud Infrastructure, tal como autoriza la consigna cuando Azure no dispone de creditos o suscripcion.",
+    "La infraestructura como codigo permite describir recursos mediante archivos versionables, repetibles y auditables. Para esta actividad se desarrollo un proyecto Terraform que define una maquina virtual Ubuntu en Microsoft Azure, su red publica, la proteccion de acceso HTTP y la instalacion automatica de Apache. Para la demostracion practica, el docente autorizo ejecutar el ciclo completo de Terraform mediante Docker.",
   ),
   body(
-    "El trabajo se construyo con un criterio verificable: no se presentan capturas simuladas ni resultados atribuidos a un despliegue inexistente. Cada figura procede del repositorio publico o de archivos reales generados por Terraform durante la inicializacion y validacion.",
+    "El trabajo se construyo con un criterio verificable: no se presentan capturas simuladas ni se identifica el contenedor como una maquina virtual de Azure. Las evidencias muestran la ejecucion real de terraform apply, el contenedor Linux activo en Docker Desktop y el servidor Apache respondiendo HTTP 200.",
   ),
 
   heading("2. Objetivos"),
@@ -280,6 +280,7 @@ const children = [
   bullet("Crear una red publica con direccion IP accesible desde Internet."),
   bullet("Permitir unicamente trafico entrante HTTP por el puerto TCP 80."),
   bullet("Provisionar Ubuntu y automatizar la instalacion de Apache mediante cloud-init."),
+  bullet("Ejecutar init, validate, plan y apply en una demostracion Docker autorizada."),
   bullet("Versionar el codigo en un repositorio GitHub publico y conservar evidencias reales."),
 
   heading("3. Arquitectura propuesta"),
@@ -305,26 +306,32 @@ const children = [
   image("02-github-main-tf.png"),
   caption("Figura 1. Archivo main.tf publicado en GitHub. Captura real del repositorio publico."),
 
-  heading("5. Alternativa para Oracle Cloud Infrastructure"),
+  heading("5. Demostracion autorizada con Docker"),
   body(
-    "La autenticacion de Azure devolvio que la cuenta no posee suscripciones. En respuesta, se implemento la alternativa permitida por la tarea dentro de la carpeta oracle. Esta version usa el proveedor oficial oracle/oci y crea una VCN, Internet Gateway, tabla de rutas, lista de seguridad, subred publica e instancia Ubuntu con Apache.",
+    "La carpeta demo-terraform utiliza el proveedor kreuzwerker/docker. Terraform administra dos recursos: la imagen oficial httpd:2.4-alpine y el contenedor techustart-apache. El puerto 80 del contenedor se publica en 127.0.0.1:8080 y el contenido web se monta en modo de solo lectura.",
   ),
   body(
-    "La alternativa mantiene el mismo comportamiento funcional: entrada TCP/80, instalacion automatica con user_data, IP publica y output de URL. El shape predeterminado VM.Standard.E2.1.Micro puede modificarse segun la disponibilidad y los limites de la cuenta.",
+    "Esta modalidad no reemplaza ni modifica los bloques Azure solicitados. Su funcion es demostrar de manera real y autorizada el flujo de infraestructura como codigo: inicializacion del proveedor, validacion, plan de dos recursos, aplicacion, outputs, consulta del estado y destruccion controlada.",
   ),
+  codeLine('resource "docker_image" "apache" { name = "httpd:2.4-alpine" }'),
+  codeLine('resource "docker_container" "techustart" { ... }'),
+  codeLine('external = 8080'),
+  codeLine('internal = 80'),
 
   heading("6. Validacion tecnica"),
   body(
-    "La inicializacion y validacion se ejecutaron localmente con Terraform 1.15.6. AzureRM se resolvio en la version 4.77.0 y el proveedor OCI en la version 8.18.0. Ambas configuraciones superaron terraform validate.",
+    "La configuracion Azure fue inicializada y supero terraform validate. Adicionalmente, la demostracion Docker ejecuto terraform init, terraform fmt -check, terraform validate, terraform plan y terraform apply. El plan anuncio dos recursos y la aplicacion termino con dos recursos agregados.",
   ),
   image("03-azure-terraform-init.png"),
-  caption("Figura 2. Evidencia real de terraform init para Azure publicada en GitHub."),
+  caption("Figura 2. Evidencia real de terraform init para la implementacion Azure."),
   image("04-azure-terraform-validate.png", 620, 194),
-  caption("Figura 3. Evidencia real de terraform validate para Azure publicada en GitHub."),
-  image("05-oracle-terraform-init.png"),
-  caption("Figura 4. Evidencia real de terraform init para Oracle Cloud publicada en GitHub."),
-  image("06-oracle-terraform-validate.png", 620, 194),
-  caption("Figura 5. Evidencia real de terraform validate para Oracle Cloud publicada en GitHub."),
+  caption("Figura 3. Evidencia real de terraform validate para Azure."),
+  image("07-docker-terraform-apply.png", 620, 331),
+  caption("Figura 4. Ejecucion real: apply completo, outputs, estado y verificacion HTTP 200."),
+  image("09-docker-desktop-contenedor.png", 620, 354),
+  caption("Figura 5. Docker Desktop muestra el contenedor techustart-apache activo y el puerto 8080:80."),
+  image("08-docker-apache-http.png", 330, 597),
+  caption("Figura 6. Pagina Apache real servida desde el contenedor creado por Terraform."),
 
   heading("7. Control de versiones y repositorio publico"),
   body(
@@ -346,34 +353,33 @@ const children = [
     ],
   }),
   image("01-github-repositorio-publico.png"),
-  caption("Figura 6. Repositorio GitHub publico con las implementaciones Azure y Oracle."),
+  caption("Figura 7. Repositorio GitHub publico con el codigo y la demostracion Docker."),
 
   heading("8. Estado del despliegue"),
   body(
-    "El codigo y sus proveedores fueron inicializados y validados correctamente. Sin embargo, no se ejecuto terraform apply en Azure porque la autenticacion real devolvio el mensaje No subscriptions found. Tambien se inicio el flujo de autenticacion de Oracle Cloud, pero la cuenta OCI no termino de configurarse durante la preparacion de este informe.",
+    "La demostracion autorizada se encuentra desplegada y operativa en el equipo local. Terraform administra la imagen docker_image.apache y el contenedor docker_container.techustart. Docker Desktop confirma que el contenedor esta activo y publica 127.0.0.1:8080 hacia el puerto HTTP 80.",
   ),
   body(
-    "Por rigor tecnico, no se afirma que exista una IP publica ni una pagina Apache desplegada, y no se incorpora ninguna captura inventada. Una vez que exista una suscripcion Azure activa o una sesion OCI configurada, el proyecto queda listo para ejecutar plan, apply, comprobar la URL HTTP y, finalmente, destruir los recursos para evitar costos.",
+    "La comprobacion mediante Invoke-WebRequest devolvio HTTP 200 y la pagina se visualizo en el navegador. La implementacion Azure permanece lista y validada en main.tf, pero las evidencias de ejecucion se atribuyen correctamente a Docker, conforme a la autorizacion recibida.",
   ),
 
   heading("9. Comandos de ejecucion"),
-  codeLine("terraform init"),
-  codeLine("terraform fmt -check -recursive"),
-  codeLine("terraform validate"),
-  codeLine('terraform plan -var "ssh_public_key=<CLAVE_PUBLICA>"'),
-  codeLine('terraform apply -var "ssh_public_key=<CLAVE_PUBLICA>"'),
-  codeLine("terraform output website_url"),
-  codeLine('terraform destroy -var "ssh_public_key=<CLAVE_PUBLICA>"'),
+  codeLine("powershell -ExecutionPolicy Bypass -File .\\iniciar-demo-completa.ps1 -Recrear"),
+  codeLine("terraform output"),
+  codeLine("terraform state list"),
+  codeLine("docker ps --filter name=techustart-apache"),
+  codeLine("Invoke-WebRequest http://127.0.0.1:8080"),
+  codeLine("powershell -ExecutionPolicy Bypass -File .\\detener-demo-completa.ps1"),
 
   heading("10. Conclusiones"),
   body(
     "La actividad demuestra que Terraform permite expresar una arquitectura completa en archivos claros y reutilizables. La separacion de variables reduce cambios manuales, mientras que los archivos de bloqueo hacen reproducible la seleccion de proveedores.",
   ),
   body(
-    "El uso de cloud-init evita configurar Apache manualmente despues de crear la maquina. Ademas, limitar el acceso entrante al puerto 80 cumple el requisito de seguridad indicado. El principal limite encontrado no fue tecnico: la cuenta Azure autenticada carece de suscripcion y Oracle Cloud aun requiere completar su autenticacion.",
+    "El uso de custom_data en Azure evita configurar Apache manualmente despues de crear la maquina. En la demostracion Docker, Terraform tambien conserva una definicion declarativa y reproducible: crea la imagen, inicia el contenedor, publica el puerto y monta el contenido web.",
   ),
   body(
-    "Finalmente, publicar el codigo y las evidencias en GitHub facilita la revision del trabajo. La documentacion distingue con claridad entre lo implementado, lo validado y lo que todavia depende de una cuenta de nube habilitada.",
+    "Finalmente, la ejecucion real comprobo plan, apply, outputs, estado y respuesta HTTP 200. La documentacion diferencia con claridad la arquitectura Azure solicitada de la demostracion Docker autorizada, y todas las capturas incorporadas corresponden al sistema ejecutado.",
   ),
 
   pageBreak(),
@@ -391,12 +397,12 @@ const children = [
     "https://learn.microsoft.com/azure/virtual-machines/linux/",
   ),
   reference(
-    "Oracle. (2026). Create a Compute Instance with Terraform.",
-    "https://docs.oracle.com/en-us/iaas/Content/dev/terraform/tutorials/tf-compute.htm",
+    "Kreuzwerker. (2026). Docker Provider documentation.",
+    "https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs",
   ),
   reference(
-    "Oracle. (2026). Create a Virtual Cloud Network with Terraform.",
-    "https://docs.oracle.com/en-us/iaas/Content/dev/terraform/tutorials/tf-vcn.htm",
+    "Docker. (2026). Apache HTTP Server official image.",
+    "https://hub.docker.com/_/httpd",
   ),
   reference(
     "Carrillo Loor, S. (2026). terraform-azure-techustart [Repositorio GitHub].",
