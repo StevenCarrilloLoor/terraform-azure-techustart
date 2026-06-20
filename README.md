@@ -39,6 +39,31 @@ Al terminar la demostracion, elimine los recursos para evitar costos:
 terraform destroy -var "ssh_public_key=$(Get-Content $HOME\.ssh\id_ed25519.pub)"
 ```
 
+## Demostracion Docker autorizada para la exposicion
+
+La carpeta `demo-terraform` permite demostrar el ciclo completo de Terraform
+con un servidor Apache Linux real administrado mediante el proveedor Docker.
+Esta modalidad fue autorizada para la exposicion:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\iniciar-demo-completa.ps1 -Recrear
+```
+
+El script ejecuta `init`, `fmt -check`, `validate`, `plan` y `apply`; crea la
+imagen y el contenedor `techustart-apache`, muestra los recursos del estado y
+verifica que `http://127.0.0.1:8080` responda HTTP 200. La implementacion
+solicitada para Azure se conserva en los archivos principales del proyecto.
+
+Para detenerla:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\detener-demo-completa.ps1
+```
+
+El guion con la explicación de cada bloque de código y la demostración se
+encuentra en
+[`GUION_PRESENTACION_COMPLETO.md`](GUION_PRESENTACION_COMPLETO.md).
+
 ## Variables principales
 
 | Variable | Tipo | Valor predeterminado | Proposito |

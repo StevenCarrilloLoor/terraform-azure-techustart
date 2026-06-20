@@ -32,3 +32,10 @@ informe/lo-profile-final/
 informe/lo-profile-*/
 informe/qa-*/
 Informe_Terraform_Steven_Carrillo_Loor.docx
+Guion_Presentacion_Terraform.docx
+demo-terraform/.terraform/
+demo-terraform/.terraform.lock.hcl
+demo-terraform/*.tfstate
+demo-terraform/*.tfstate.*
+demo-terraform/*.tfplan
+.auth-temp/
